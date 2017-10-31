@@ -1,0 +1,115 @@
+REDUX
+- when do i need redux?
+  - complex data flows.
+  - interactions between unrelated components.
+  - many actions.
+  - same data in multiple places.
+
+- Central store.
+  - local client side 'db'.
+
+- Principles of redux.
+  1. one immutable store
+  2. can only be changed by actions. (submitContactForm)
+  3. reducer accepts state and returns a new state.
+
+- FLUX
+  - unidirectional data flow.
+  - actions for how state can be changed.
+  - stores. Flux can have multiple.
+
+  - Reducers. function (current state, action) => new state.
+  - Containers: react components specifically for passing data down to dumb components via props.
+  - Immutability stores are immutable.
+
+  FLUX.
+  Actions => dispatchers => store => React => Action
+
+  REDUX (single store)
+  Action => store => React
+            /\ ||
+            || \/
+           Reducer
+ (handles all state changing logic)
+
+ REDUX FLOW
+ - an Action describes user intent. {type: RATE_COURSE, rating: 5}
+  - must have a type.
+  - action will be handled by a reducer which updates state and updates react
+    components via props.
+
+    function appReducer(state = defaultState, action) {
+      switch(action.type) {
+        case RATE_COURSE:
+        // return new state.
+      }
+    }
+
+    // ACTION CREATOR
+    rateCourse(rating) {
+      return { type: RATE_COURSE, rating: rating} // <-- ACTION
+    }
+
+    // REDUX STORE API
+
+      created by createStore(reducer);
+      store.dispatch(action)
+      store.subscribe(listen)
+      store.getState()
+      replaceReducer(nextReducer)
+
+      IMMUTABILITY to change state, return a new object. (entirely new)
+
+      Signature
+      Object.assign(target, ...sources as many as you want)
+
+      Example needs babel-polyfill.
+      Object.assign({}, state, {role: 'admin'});
+        - create a new empty object. mixin existing state
+
+
+{
+    id: 25,
+    startTime: "20171023 10:13",
+    workoutType: "Kettle Bell Session",
+    exercises: [
+      {
+        name: 'Rowing machine',
+        category: 'cardio',
+        metrics: [
+          {
+            name: "time",
+            value: 15000
+          },
+          {
+            name: "resistance",
+            value: 6
+          }
+        ]
+      },
+      {
+        name: 'Kettle Bell Swings',
+        category: 'kettle bells',
+        metrics: [
+          {
+            name: "reps",
+            value: 15
+          },
+          {
+            name: "weight",
+            value: 45
+          }
+        ]
+      },
+      {
+        name: 'Crimp and two finger',
+        category: 'cardio',
+        metrics: [
+          {
+            name: "time",
+            value: 1500
+          }
+        ]
+      }
+    ]
+},
