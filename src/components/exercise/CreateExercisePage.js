@@ -1,4 +1,7 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as exerciseActions from '../../actions/exerciseActions';
 
 const metricTypes = [
   {
@@ -7,15 +10,19 @@ const metricTypes = [
   },
   {
     _id: 2,
-    label: "Time",
+    label: "Time"
   },
   {
     _id: 3,
-    label: "Boulder Grade",
+    label: "Boulder Grade"
   },
   {
     _id: 4,
-    label: "Sport Grade",
+    label: "Sport Grade"
+  },
+  {
+    _id: 5,
+    label: "Weight (LBS)"
   }
 ];
 
@@ -25,7 +32,7 @@ class CreateExercisePage extends React.Component {
 
     this.state = {
       exercise: {
-        title: '',
+        name: '',
         metrics: [{
           name: '',
           type: ''
@@ -40,12 +47,12 @@ class CreateExercisePage extends React.Component {
 
   onTitleChange(event) {
     const exercise = this.state.exercise;
-    exercise.title = event.target.value;
+    exercise.name = event.target.value;
     this.setState({course: exercise});
   }
 
   onClickSave() {
-    console.log(this.state.exercise);
+    this.props.actions.createExercise(this.state.exercise);
   }
 
   onClickAddMetric() {
@@ -64,12 +71,14 @@ class CreateExercisePage extends React.Component {
       let tempName = (idx === sidx) ? e.target.value : oldMetric.name;
       newMetrics.push({
         name: tempName,
-        type: ''
+        type: oldMetric.type
       });
     });
     exercise.metrics = newMetrics;
     this.setState(prevState => {
-      exercise: exercise
+      return({
+        exercise: exercise
+      });
     });
   }
 
@@ -107,7 +116,7 @@ class CreateExercisePage extends React.Component {
         <input
           type="text"
           placeholder="Add Name"
-          value={this.state.exercise.title}
+          value={this.state.exercise.name}
           onChange={this.onTitleChange} />
 
         <h3>Metrics</h3>
@@ -138,7 +147,7 @@ class CreateExercisePage extends React.Component {
                       {metricTypes.map((type, idx) => {
                         return(
                           <option key={idx} value={type._id}>{type.label}</option>
-                        )
+                        );
                       })}
                     </select>
                   </td>
@@ -161,15 +170,33 @@ class CreateExercisePage extends React.Component {
           className="btn btn-success"
           value="Add Metric"
           onClick={this.onClickAddMetric} />
-
-        <input
-          type="button"
-          className="btn btn-primary"
-          value="Save"
-          onClick={this.onClickSave} />
+        <div className="mb-15">
+          <input
+            type="button"
+            className="btn btn-primary"
+            value="Save"
+            onClick={this.onClickSave} />
+        </div>
       </div>
-    )
+    ); 
   }
 }
 
-export default CreateExercisePage;
+CreateExercisePage.propTypes = {
+  exercises: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    exercises: state.exercises
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(exerciseActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateExercisePage);
