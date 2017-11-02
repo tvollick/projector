@@ -6,7 +6,8 @@ export default function exerciseReducer(state = [], action) {
       return [...state,
         Object.assign({}, action.exercise)
       ];
-
+    case types.LOAD_EXERCISES_SUCCCESS:
+      return action.exercises; 
     default:
       return state;
   }

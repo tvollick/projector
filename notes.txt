@@ -1,36 +1,20 @@
-REDUX
-- when do i need redux?
-  - complex data flows.
-  - interactions between unrelated components.
-  - many actions.
-  - same data in multiple places.
+STORES
 
-- Central store.
-  - local client side 'db'.
+- WorkoutsArchive
+- ExerciseLibrary
+- WorkoutCurrent
+  - dateCreated
+  - blocks []
+    - repetitions
+    - exercises [{}...]
 
-- Principles of redux.
-  1. one immutable store
-  2. can only be changed by actions. (submitContactForm)
-  3. reducer accepts state and returns a new state.
 
-- FLUX
-  - unidirectional data flow.
-  - actions for how state can be changed.
-  - stores. Flux can have multiple.
 
-  - Reducers. function (current state, action) => new state.
-  - Containers: react components specifically for passing data down to dumb components via props.
-  - Immutability stores are immutable.
 
-  FLUX.
-  Actions => dispatchers => store => React => Action
 
-  REDUX (single store)
-  Action => store => React
-            /\ ||
-            || \/
-           Reducer
- (handles all state changing logic)
+
+======
+
 
  REDUX FLOW
  - an Action describes user intent. {type: RATE_COURSE, rating: 5}
@@ -67,7 +51,7 @@ REDUX
       Object.assign({}, state, {role: 'admin'});
         - create a new empty object. mixin existing state
 
- 
+
 
 {
     id: 25,
@@ -114,20 +98,3 @@ REDUX
       }
     ]
 },
-
-
-REDUCERS (state, action) => new state.
-
-function myReducer(state, action) {
-  // return new state based on action passed.
-}
-
-all reducers are called when an action is dispatched.
-
-a reducer gets a slice of state it is responsible for.
-
-react-redux library
-
-provider component in app root.
-
-connect component to create container components.

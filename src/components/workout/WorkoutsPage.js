@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import WorkoutList from './WorkoutList';
 
 const getWorkoutsResponse = [
@@ -145,16 +146,24 @@ class WorkoutsPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.workouts);
+    const {workouts} = this.props;
     return (
       <div id="workouts-page">
         <h1>My Workouts</h1>
 
-        <WorkoutList workouts={this.state.workouts} />
+        {workouts.map(workout => {
+          return <h1>{workout.startTime}</h1>;
+        })}
 
       </div>
     );
   }
 }
 
-export default WorkoutsPage;
+
+function mapStateToProps(state,ownProps) {
+  return{
+    workouts: state.workouts
+  };
+}
+export default connect(mapStateToProps)(WorkoutsPage);
