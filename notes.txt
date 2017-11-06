@@ -1,6 +1,6 @@
 STORES
 
-- WorkoutsArchive
+- workouts
 - ExerciseLibrary
 - WorkoutCurrent
   - dateCreated

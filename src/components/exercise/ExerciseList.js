@@ -1,23 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const ExerciseList = (props) => {
+const ExerciseList = ({exercises, handleAddExercise}) => {
   return (
     <div id="exerciseList">
       <h3>Exercise List to Choose From</h3>
       <table>
         <tbody>
-          {props.exercises.map(exercise => {
+          {exercises.map((exercise, idx) => {
+
             return (
-              <tr>
+              <tr key={idx}>
                 <td>
                   <h4>{exercise.name}</h4>
                 </td>
                 <td>
                   <button
                     className="btn btn-default btn-sm"
+                    onClick={() => {
+                      handleAddExercise(exercise)
+                    }}
                     >
-                    Add to workout
+                    Add
                   </button>
                 </td>
               </tr>

@@ -8,7 +8,7 @@ const Header = () => {
       {" | "}
       <Link to="/workouts" activeClassName="active">Workouts</Link>
       {" | "}
-      <Link to="/new-workout" activeClassName="active">New Workout</Link>
+      <Link to="/workout" activeClassName="active">New Workout</Link>
       {" | "}
       <Link to="/new-exercise" activeClassName="active">New Exercise</Link>
       {" | "}
