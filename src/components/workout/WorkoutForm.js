@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ExerciseBlock from './ExerciseBlock';
 
-const WorkoutForm = ({blocks, handleAddBlock, handleSave}) => {
+const WorkoutForm = ({blocks, handleAddBlock, handleSave, saving}) => {
 
   return(
     <div id="workoutForm">
@@ -28,12 +28,18 @@ const WorkoutForm = ({blocks, handleAddBlock, handleSave}) => {
         <button
           className="btn btn-primary"
           onClick={handleSave}
+          disable={saving}
           >
-          Save Workout
+          {saving ? 'Saving...' : 'Save'}
         </button>
       </div>
     </div>
   );
 }
+
+WorkoutForm.propTypes = {
+  saving: React.PropTypes.bool,
+}
+
 
 export default WorkoutForm;

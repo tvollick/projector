@@ -11,7 +11,7 @@ const workouts = [
       workoutType: "Kettle Bell Session",
       blocks: [
         {
-          repetitions: 1, 
+          repetitions: 1,
           exercises: [
             {
               name: 'Rowing machine',
@@ -64,7 +64,9 @@ function replaceAll(str, find, replace) {
 
 //This would be performed on the server in a real app. Just stubbing in.
 const generateId = (workout) => {
-  return replaceAll(workout.title, ' ', '-');
+  const _id = workouts.length + 1;
+
+  return _id;
 };
 
 class workoutsApi {
@@ -78,12 +80,12 @@ class workoutsApi {
 
   static saveWorkout(workout) {
     workout = Object.assign({}, workout); // to avoid manipulating object passed in.
+    console.log(workout);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
-        const minWorkoutTitleLength = 1;
-        if (workout.title.length < minWorkoutTitleLength) {
-          reject(`Title must be at least ${minWorkoutTitleLength} characters.`);
+        if (workout.blocks.length < 1) {
+          reject(`Workout is empty`);
         }
 
         if (workout.id) {

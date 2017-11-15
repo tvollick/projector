@@ -8,8 +8,11 @@ export default function workoutsReducer(state = initialState.workouts, action) {
     case types.CREATE_WORKOUT_SUCCESS:
       return [
         ...state, Object.assign({}, action.workout)
-      ]; 
-
+      ];
+    case types.UPDATE_WORKOUT_SUCCESS:
+      return [
+        ...state.filter(workout => workout.id !== action.workout.id), Object.assign({}, action.workout)
+      ];
     default:
       return state;
   }
